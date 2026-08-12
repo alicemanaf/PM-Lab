@@ -1,0 +1,446 @@
+/* ==========================================================================
+   PM Lab - Estilos principais
+   ========================================================================== */
+
+:root {
+    --cor-fundo: #0a1030;
+    --cor-overlay: rgba(6, 10, 28, 0.72);
+    --cor-texto: #ffffff;
+    --cor-texto-suave: rgba(255, 255, 255, 0.88);
+    --cor-card-bg: rgba(255, 255, 255, 0.10);
+    --cor-card-borda: rgba(255, 255, 255, 0.18);
+    --cor-menu-bg: rgba(4, 8, 22, 0.94);
+    --cor-divisor: rgba(255, 255, 255, 0.18);
+    --fonte-titulo: 'Poppins', sans-serif;
+    --fonte-corpo: 'Poppins', sans-serif;
+    --largura-menu: 320px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+    font-family: var(--fonte-corpo);
+    color: var(--cor-texto);
+}
+
+body {
+    background: var(--cor-fundo);
+    position: relative;
+    isolation: isolate;
+}
+
+img {
+    max-width: 100%;
+    display: block;
+}
+
+ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* ---------- fundo fixo com a imagem do átomo, meio apagado ---------- */
+
+body::before,
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+}
+
+body::before {
+    background-image: url('../img/fundo-atomo.jpeg');
+    background-size: cover;
+    background-position: center;
+}
+
+body::after {
+    background: var(--cor-overlay);
+}
+
+.site-header,
+.scroll-container {
+    position: relative;
+    z-index: 1;
+}
+
+/* ---------- cabeçalho / botão de menu ---------- */
+
+.site-header {
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 100;
+}
+
+.menu-toggle {
+    position: fixed;
+    top: 28px;
+    right: 32px;
+    width: 56px;
+    height: 56px;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    z-index: 210;
+    transition: transform 0.35s ease;
+}
+
+.menu-toggle:hover {
+    transform: rotate(25deg);
+}
+
+.menu-toggle__icon {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.35));
+}
+
+/* ---------- menu lateral sobreposto ---------- */
+
+.menu-lateral {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100%;
+    width: var(--largura-menu);
+    max-width: 82vw;
+    background: var(--cor-menu-bg);
+    border-left: 1px solid rgba(255, 255, 255, 0.08);
+    z-index: 200;
+    transform: translateX(100%);
+    transition: transform 0.4s cubic-bezier(0.65, 0, 0.35, 1);
+    padding: 100px 0 40px;
+    overflow-y: auto;
+}
+
+.menu-lateral.aberto {
+    transform: translateX(0);
+}
+
+.menu-lateral__brand {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 0 24px 36px;
+    font-family: var(--fonte-titulo);
+    font-weight: 800;
+    font-size: 1.4rem;
+    letter-spacing: 0.5px;
+}
+
+.menu-lateral__logo {
+    width: 34px;
+    height: 34px;
+    object-fit: contain;
+}
+
+.menu-lateral__lista li {
+    border-top: 1px solid var(--cor-divisor);
+}
+
+.menu-lateral__lista li:last-child {
+    border-bottom: 1px solid var(--cor-divisor);
+}
+
+.menu-lateral__link {
+    display: block;
+    padding: 22px 24px;
+    text-align: center;
+    font-family: var(--fonte-titulo);
+    font-weight: 700;
+    font-size: 1.05rem;
+    transition: background 0.25s ease, color 0.25s ease;
+}
+
+.menu-lateral__link:hover,
+.menu-lateral__link:focus-visible {
+    background: rgba(255, 255, 255, 0.06);
+    color: #ffcf8a;
+}
+
+.menu-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.35);
+    z-index: 190;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.35s ease;
+}
+
+.menu-overlay.ativo {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* ---------- estrutura das seções / rolagem tipo carrossel ---------- */
+
+.scroll-container {
+    height: 100vh;
+    overflow-y: scroll;
+    scroll-snap-type: y mandatory;
+}
+
+.secao {
+    height: 100vh;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    padding: 110px 8vw 60px;
+}
+
+.secao__conteudo {
+    width: 100%;
+    max-width: 1200px;
+}
+
+/* ---------- tipografia geral das seções ---------- */
+
+.titulo-boas-vindas {
+    font-family: var(--fonte-titulo);
+    font-weight: 800;
+    font-size: clamp(2.4rem, 5vw, 3.6rem);
+    text-align: center;
+    margin: 0 0 12px;
+}
+
+.subtitulo {
+    font-family: var(--fonte-titulo);
+    font-weight: 700;
+    font-size: clamp(1.3rem, 2.6vw, 1.9rem);
+    text-align: center;
+    margin: 0 0 48px;
+}
+
+.titulo-secao {
+    font-family: var(--fonte-titulo);
+    font-weight: 800;
+    font-size: clamp(1.8rem, 3.6vw, 2.6rem);
+    text-align: center;
+    margin: 0 0 32px;
+}
+
+.paragrafo-central {
+    font-size: clamp(1rem, 1.6vw, 1.2rem);
+    line-height: 1.75;
+    color: var(--cor-texto-suave);
+    text-align: center;
+    max-width: 780px;
+    margin: 0 auto 28px;
+}
+
+/* ---------- seção: sobre o professor ---------- */
+
+.bloco-professor {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    margin-bottom: 56px;
+}
+
+.bloco-professor__foto {
+    flex: none;
+    width: 190px;
+    height: 190px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 3px solid rgba(255, 255, 255, 0.65);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.bloco-professor__foto img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.bloco-professor__texto h3 {
+    font-family: var(--fonte-titulo);
+    font-weight: 700;
+    font-size: clamp(1.3rem, 2.2vw, 1.6rem);
+    margin: 0 0 12px;
+}
+
+.bloco-professor__texto p {
+    font-size: clamp(0.95rem, 1.4vw, 1.1rem);
+    line-height: 1.7;
+    color: var(--cor-texto-suave);
+    margin: 0;
+    max-width: 780px;
+}
+
+.cards-duplos {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+}
+
+.card-info h4 {
+    font-family: var(--fonte-titulo);
+    font-weight: 800;
+    font-size: 1.3rem;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 0 0 18px;
+    text-align: center;
+}
+
+.card-info ul {
+    min-height: 140px;
+    background: var(--cor-card-bg);
+    border: 1px solid var(--cor-card-borda);
+    border-radius: 22px;
+    padding: 24px;
+    backdrop-filter: blur(4px);
+}
+
+.card-info li {
+    font-size: 0.98rem;
+    line-height: 1.6;
+    color: var(--cor-texto-suave);
+    padding: 6px 0;
+}
+
+/* ---------- seção: quais são os cursos ---------- */
+
+.cards-cursos {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+}
+
+.card-curso h3 {
+    font-family: var(--fonte-titulo);
+    font-weight: 700;
+    font-size: 1.25rem;
+    text-align: center;
+    margin: 0 0 18px;
+}
+
+.card-curso ul {
+    background: var(--cor-card-bg);
+    border: 1px solid var(--cor-card-borda);
+    border-radius: 22px;
+    padding: 28px 22px;
+    min-height: 200px;
+    backdrop-filter: blur(4px);
+}
+
+.card-curso li {
+    text-align: center;
+    font-size: 0.98rem;
+    line-height: 1.9;
+    color: var(--cor-texto-suave);
+}
+
+/* ---------- seção: contato ---------- */
+
+.secao__conteudo--contato {
+    max-width: 760px;
+}
+
+.secao__conteudo--contato .titulo-secao {
+    text-align: left;
+}
+
+.lista-contato {
+    display: flex;
+    flex-direction: column;
+    gap: 34px;
+}
+
+.item-contato h4 {
+    font-family: var(--fonte-titulo);
+    font-weight: 700;
+    font-size: clamp(1.05rem, 1.8vw, 1.3rem);
+    margin: 0 0 10px;
+}
+
+.item-contato p {
+    font-size: clamp(0.95rem, 1.4vw, 1.05rem);
+    line-height: 1.7;
+    color: var(--cor-texto-suave);
+    margin: 0;
+}
+
+/* ==========================================================================
+   Responsivo
+   ========================================================================== */
+
+@media (max-width: 900px) {
+    .secao {
+        padding: 100px 6vw 50px;
+        overflow-y: auto;
+        align-items: flex-start;
+    }
+
+    .bloco-professor {
+        flex-direction: column;
+        text-align: center;
+        gap: 22px;
+    }
+
+    .bloco-professor__texto p {
+        max-width: 100%;
+    }
+
+    .cards-duplos {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .cards-cursos {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .menu-toggle {
+        top: 20px;
+        right: 20px;
+        width: 46px;
+        height: 46px;
+    }
+
+    :root {
+        --largura-menu: 280px;
+    }
+}
+
+@media (max-width: 480px) {
+    .titulo-boas-vindas {
+        font-size: 2rem;
+    }
+
+    .bloco-professor__foto {
+        width: 140px;
+        height: 140px;
+    }
+}
+
+/* respeita preferência de menos movimento */
+@media (prefers-reduced-motion: reduce) {
+    .menu-toggle,
+    .menu-lateral,
+    .menu-overlay {
+        transition: none;
+    }
+}
